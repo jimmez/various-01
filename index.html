@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -952,11 +950,75 @@
       }
     });
 
+    /* ===== NEW: Auto-load diverselist.json ===== */
+    async function loadExternalJSON() {
+      try {
+        const res = await fetch('diverselist.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        let changed = false;
+        const setListIfEmpty = (letter, arr) => {
+          if (!Array.isArray(arr)) return;
+          if (!lists[letter] || lists[letter].length === 0) {
+            lists[letter] = arr.map(x => String(x)).filter(Boolean);
+            localStorage.setItem('promptList_' + letter, JSON.stringify(lists[letter]));
+            changed = true;
+          }
+        };
+
+        if (Array.isArray(data)) {
+          // Simple array -> J
+          setListIfEmpty('J', data);
+          if (!names['J'] || names['J'] === defaultNames['J']) {
+            names['J'] = 'Diverse List';
+            changed = true;
+          }
+        } else if (data && typeof data === 'object') {
+          // Preferred: { lists: {...}, names?: {...} }
+          if (data.lists && typeof data.lists === 'object') {
+            LETTERS.forEach(l => {
+              if (Array.isArray(data.lists[l])) setListIfEmpty(l, data.lists[l]);
+            });
+          }
+          // Alternate: { items:[...], title?: '...' } -> J
+          if (Array.isArray(data.items)) {
+            setListIfEmpty('J', data.items);
+            if (data.title && (!names['J'] || names['J'] === defaultNames['J'])) {
+              names['J'] = String(data.title);
+              changed = true;
+            }
+          }
+          // Optional names override (non-destructive)
+          if (data.names && typeof data.names === 'object') {
+            let touched = false;
+            for (const [k, v] of Object.entries(data.names)) {
+              if (LETTERS.includes(k) && (!names[k] || names[k] === defaultNames[k])) {
+                names[k] = String(v);
+                touched = true;
+              }
+            }
+            if (touched) changed = true;
+          }
+        }
+
+        if (changed) {
+          localStorage.setItem('promptListNames', JSON.stringify(names));
+          updateListButtons();
+          updateNameInputs();
+        }
+      } catch (err) {
+        console.warn('Could not load diverselist.json:', err);
+      }
+    }
+    /* ===== END NEW ===== */
+
     // ===== Boot =====
     buildListButtons();
     buildNamesPanel();
     buildCombinePanel();
     loadSettings();
+    loadExternalJSON(); /* NEW: load JSON from repo */
     switchList('A');
   </script>
 </body>
