@@ -1,0 +1,89 @@
+{
+  "version": "pg-10lists-v04",
+  "lists": {
+    "A": [
+      "Trap",
+      "Triplets",
+      "Alliteration",
+      "a-b-a-b pattern",
+      "Question",
+      "rhymes",
+      "Philosophy",
+      "Reminds",
+      "Nearby location",
+      "Meanwhile",
+      "Shakespeare",
+      "Svensk",
+      "Irish",
+      "German",
+      "German-english",
+      "Louisville",
+      "Brooklyn",
+      "Nord-norsk"
+    ],
+    "B": [
+      "hashtag",
+      "philosophy",
+      "breathe",
+      "stop",
+      "focus on one stop",
+      "new location",
+      "emdr",
+      "360 spin",
+      "physical tempo change",
+      "verbal tempo change",
+      "volume",
+      "weight change",
+      "pose",
+      "current quote",
+      "repeat",
+      "meisner",
+      "what else",
+      "great accomplishments",
+      "current story",
+      "wanted story",
+      "obejective",
+      "personal justification",
+      "societal justification",
+      "familiar justification"
+    ],
+    "C": [
+      "uncomfortables",
+      "hard task",
+      "opportunity",
+      "pleasures",
+      "wants"
+    ],
+    "D": [],
+    "E": [],
+    "F": [],
+    "G": [],
+    "H": [],
+    "I": [],
+    "J": []
+  },
+  "names": {
+    "A": "Rap",
+    "B": "feelgood",
+    "C": "morning",
+    "D": "problemsolve",
+    "E": "cleaning",
+    "F": "List F",
+    "G": "List G",
+    "H": "List H",
+    "I": "List I",
+    "J": "List J"
+  },
+  "settings": {
+    "soundOn": true,
+    "autoPlay": false,
+    "volume": 0.658,
+    "rate": 0.834,
+    "combineMode": false,
+    "combineSelection": [
+      "A",
+      "B"
+    ],
+    "randomVoicePerPrompt": true
+  }
+}
